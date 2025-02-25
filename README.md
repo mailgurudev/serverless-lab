@@ -52,8 +52,8 @@ To create an execution role
 2. Create Policy with below properties
    * Policy Editor - JSON
    * Paste the below code for sutom policy - Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that  the function needs to write data to DynamoDB and upload logs.  
-   * Policy Name - custompolicy
-```json
+   * Policy Name - custompolicy   
+```
     {
     "Version": "2012-10-17",
     "Statement": [
