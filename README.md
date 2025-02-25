@@ -149,8 +149,6 @@ def lambda_handler(event, context):
 Let's test our newly created function. We haven't created DynamoDB and the API yet, so we'll do a sample echo operation. The function should output whatever input we pass.
 1. Click the arrow on "Select a test event" and click "Configure test events"
 
-![Configure test events](./images/lambda-test-event-create.jpg)
-
 2. Paste the following JSON into the event. The field "operation" dictates what the lambda function will perform. In this case, it'd simply return the payload from input event as output. Click "Create" to save
 ```json
 {
@@ -161,11 +159,8 @@ Let's test our newly created function. We haven't created DynamoDB and the API y
     }
 }
 ```
-![Save test event](./images/save-test-event.jpg)
 
 3. Click "Test", and it will execute the test event. You should see the output in the console
-
-![Execute test event](./images/execute-test.jpg)
 
 We're all set to create DynamoDB table and an API using our lambda as backend!
 
@@ -239,16 +234,12 @@ In this step, you deploy the API that you created to a stage called prod.
 ```
 2. To execute our API from local machine, we are going to use Postman and Curl command. You can choose either method based on your convenience and familiarity. 
     * To run this from Postman, select "POST" , paste the API invoke url. Then under "Body" select "raw" and paste the above JSON. Click "Send". API should execute and return "HTTPStatusCode" 200.
-
-    ![Execute from Postman](./images/create-from-postman.jpg)
-
+      
     * To run this from terminal using Curl, run the below
     ```
     $ curl -X POST -d "{\"operation\":\"create\",\"tableName\":\"lambda-apigateway\",\"payload\":{\"Item\":{\"id\":\"1\",\"name\":\"Bob\"}}}" https://$API.execute-api.$REGION.amazonaws.com/prod/DynamoDBManager
     ```   
 3. To validate that the item is indeed inserted into DynamoDB table, go to Dynamo console, select "lambda-apigateway" table, select "Items" tab, and the newly inserted item should be displayed.
-
-![Dynamo Item](./images/dynamo-item.jpg)
 
 4. To get all the inserted items from the table, we can use the "list" operation of Lambda using the same API. Pass the following JSON to the API, and it will return all the items from the Dynamo table
 
