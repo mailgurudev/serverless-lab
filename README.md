@@ -95,8 +95,8 @@ To create an execution role
     * Permissions – Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that  the function needs to write data to DynamoDB and upload logs.    
 
 ### Create Lambda Function
-
 ** To create the function**
+![Create function](./images/create_lambda_function.png)
 1. Click "Create function" in AWS Lambda Console
 2. Select "Author from scratch". Use name **LambdaFunctionOverHttps** , select **Python 3.7** as Runtime. 
 Under Permissions, expand Change Default execution role select "Use an existing role", and select **lambda-apigateway-role** that we created, from the drop down
@@ -143,13 +143,16 @@ def lambda_handler(event, context):
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
 ```
+![Create function](./images/Lambda_function_over_https.png)
 
 ### Test Lambda Function
 
 Let's test our newly created function. We haven't created DynamoDB and the API yet, so we'll do a sample echo operation. The function should output whatever input we pass.
-1. Click the arrow on "Select a test event" and click "Configure test events"
 
-2. Paste the following JSON into the event. The field "operation" dictates what the lambda function will perform. In this case, it'd simply return the payload from input event as output. Click "Create" to save
+1. Click the arrow on "Select a test event" and click "Configure test events"
+![Create function](./images/test_lambda_function.png)
+
+3. Paste the following JSON into the event. The field "operation" dictates what the lambda function will perform. In this case, it'd simply return the payload from input event as output. Click "Create" to save
 ```json
 {
     "operation": "echo",
@@ -161,10 +164,11 @@ Let's test our newly created function. We haven't created DynamoDB and the API y
 ```
 
 3. Click "Test", and it will execute the test event. You should see the output in the console
+![Create function](./images/test_event_output.png)
 
-We're all set to create DynamoDB table and an API using our lambda as backend!
+We are good to create DynamoDB table and an API using our lambda as backend!
 
-4. Deploy the Lambda function
+5. Deploy the Lambda function
 
 ### Create DynamoDB Table
 
