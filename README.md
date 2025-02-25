@@ -51,7 +51,7 @@ To create an execution role
 1. Go to Policies Page in IAM Console
 2. Create Policy with below properties
    * Policy Editor - JSON
-   * Paste the below code for sutom policy - Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that  the function needs to write data to DynamoDB and upload logs.  
+   * Paste the below code for custom policy - Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that  the function needs to write data to DynamoDB and upload logs.  
    * Policy Name - custompolicy   
 
 ```json
@@ -95,8 +95,9 @@ To create an execution role
     * Permissions – Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that  the function needs to write data to DynamoDB and upload logs.    
 
 ### Create Lambda Function
-** To create the function**
 ![Create function](./images/create_lambda_function.png)
+
+** To create the function**
 1. Click "Create function" in AWS Lambda Console
 2. Select "Author from scratch". Use name **LambdaFunctionOverHttps** , select **Python 3.7** as Runtime. 
 Under Permissions, expand Change Default execution role select "Use an existing role", and select **lambda-apigateway-role** that we created, from the drop down
@@ -176,6 +177,8 @@ Create the DynamoDB table that the Lambda function uses.
 
 **To create a DynamoDB table**
 
+![Create function](./images/create_dynamodb_table.png)
+
 1. Open the DynamoDB console.
 2. Choose Create table.
 3. Create a table with the following settings.
@@ -190,6 +193,7 @@ Create the DynamoDB table that the Lambda function uses.
 1. Go to API Gateway console
 2. Click Create API
 
+![Create function](./images/create_rest_api.png)
 
 3. Under choose an API Type Scroll down and select  Build for "REST API"
 
@@ -199,6 +203,8 @@ Create the DynamoDB table that the Lambda function uses.
    Typically, API resources are organized in a resource tree according to the application logic. At this time you only have the root resource, but let's add a resource next 
 
 Click "Actions", then click "Create Resource"
+
+![Create function](./images/create_api_resources.png)
 
 6. Input "DynamoDBManager" in the Resource Name, Resource Path will get populated. Click "Create Resource"
 
@@ -216,9 +222,15 @@ In this step, you deploy the API that you created to a stage called prod.
 
 1. Click "Actions", select "Deploy API"
 
-2. Now it is going to ask you about a stage. Select "[New Stage]" for "Deployment stage". Give "Prod" as "Stage name". Click "Deploy"
+![Create function](./images/deploy_api.png)
 
-3. To invoke our API endpoint, we need the endpoint url. In the "Stages" screen, expand the stage "Prod", select "POST" method, and copy the "Invoke URL" from screen
+3. Now it is going to ask you about a stage. Select "[New Stage]" for "Deployment stage". Give "Prod" as "Stage name". Click "Deploy"
+
+![Create function](./images/deploy_api_stage_prod.png)
+
+4. To invoke our API endpoint, we need the endpoint url. In the "Stages" screen, expand the stage "Prod", select "POST" method, and copy the "Invoke URL" from screen
+
+![Create function](./images/api_invoke_url.png)
 
 ### Running our solution
 
@@ -238,6 +250,8 @@ In this step, you deploy the API that you created to a stage called prod.
 ```
 2. To execute our API from local machine, we are going to use Postman and Curl command. You can choose either method based on your convenience and familiarity. 
     * To run this from Postman, select "POST" , paste the API invoke url. Then under "Body" select "raw" and paste the above JSON. Click "Send". API should execute and return "HTTPStatusCode" 200.
+
+   ![Create function](./images/postman_test.png)
       
     * To run this from terminal using Curl, run the below
     ```
@@ -245,7 +259,11 @@ In this step, you deploy the API that you created to a stage called prod.
     ```   
 3. To validate that the item is indeed inserted into DynamoDB table, go to Dynamo console, select "lambda-apigateway" table, select "Items" tab, and the newly inserted item should be displayed.
 
+![Create function](./images/dynamodb_explore_items.png)
+
 4. To get all the inserted items from the table, we can use the "list" operation of Lambda using the same API. Pass the following JSON to the API, and it will return all the items from the Dynamo table
+
+![Create function](./images/postman_payload_test.png)
 
 ```json
 {
@@ -267,13 +285,16 @@ Let's destroy the resources we have created for this lab.
 
 To delete the table, from DynamoDB console, select the table "lambda-apigateway", and click "Delete table"
 
+![Create function](./images/dynamodb_delete_table.png)
 
 ### Deleting Lambda
 
 To delete the Lambda, from the Lambda console, select lambda "LambdaFunctionOverHttps", click "Actions", then click Delete 
 
+![Create function](./images/delete_lambda.png)
 
 ### Deleting API
 
 To delete the API we created, in API gateway console, under APIs, select "DynamoDBOperations" API, click "Actions", then "Delete"
 
+![Create function](./images/delete_apigateway.png)
