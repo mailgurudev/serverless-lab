@@ -53,7 +53,8 @@ To create an execution role
    * Policy Editor - JSON
    * Paste the below code for sutom policy - Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that  the function needs to write data to DynamoDB and upload logs.  
    * Policy Name - custompolicy   
-```
+
+```json
     {
     "Version": "2012-10-17",
     "Statement": [
@@ -82,7 +83,9 @@ To create an execution role
     }
     ]
     }
-    ```
+
+```
+
 3. Open the roles page in the IAM console.
 4. Choose Create role.
 5. Create a role with the following properties.
@@ -93,7 +96,7 @@ To create an execution role
 
 ### Create Lambda Function
 
-**To create the function**
+** To create the function**
 1. Click "Create function" in AWS Lambda Console
 2. Select "Author from scratch". Use name **LambdaFunctionOverHttps** , select **Python 3.7** as Runtime. 
 Under Permissions, expand Change Default execution role select "Use an existing role", and select **lambda-apigateway-role** that we created, from the drop down
@@ -101,6 +104,7 @@ Under Permissions, expand Change Default execution role select "Use an existing 
 4. Under code section replace teh default code with the following code snippet and click "Save"
 
 ** Python Code**
+
 ```python
 from __future__ import print_function
 
